@@ -32,4 +32,4 @@ spring:
 
 ---
 encrypt:
-  key: kodikos
+  key: sfes#dsg49dfk_gf9
