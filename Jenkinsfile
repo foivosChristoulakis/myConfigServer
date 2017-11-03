@@ -37,7 +37,7 @@ pipeline{
 		stage('Bake docker image') {
 			steps{
 				script{
-					DCR_IMAGE = docker.build ("coral-epos2-infra-config:${IMAGE_TAG}", "--build-arg=devEnvDockerArg=${ENVDEV} .")
+					DCR_IMAGE = docker.build ("adlgallery:${IMAGE_TAG}", "--build-arg=devEnvDockerArg=${ENVDEV} .")
 				}
 			}
 		}
