@@ -1,0 +1,23 @@
+{
+  "containerDefinitions": [{
+  	"volumesFrom": [],
+  	"portMappings": [{
+  		"hostPort": 0,
+  		"containerPort": 8080,
+  		"protocol": "tcp"
+  	}],
+  	"essential": true,
+  	"name": "dev1-coral-epos2-infra-config",
+  	"environment": [{
+  			"name": "application.name",
+  			"value": "foo"
+  		}
+  	],
+  	"image": "__imageName__:__imageTag__",
+  	"logConfiguration": {
+  		"logDriver": "awslogs"
+  	},
+  	"cpu": 0,
+  	"memoryReservation": 500
+  }]
+}
