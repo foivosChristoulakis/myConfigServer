@@ -1,0 +1,35 @@
+
+
+
+#rootPath: ///c:/config #for windows OS
+rootPath: /opt/configuration-properties
+spring:
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          searchLocations: file:${rootPath},file:${rootPath}/service-defaults,file:${rootPath}/service-{application}
+---
+
+## common properties for all profiles
+
+http:
+  port: 8080
+server:
+  port: 8080
+  contextPath: /api/configuration
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+#logging:
+#  level:
+#    ROOT: WARN
+
+---
+encrypt:
+  key: kodikos
