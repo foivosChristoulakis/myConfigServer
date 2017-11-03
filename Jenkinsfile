@@ -45,7 +45,7 @@ pipeline{
 		stage('Renew docker aws authorisation token') {
 			steps{
 				script{
-					sh "eval \$(aws ecr get-login --no-include-email --region ${REGION})"
+					sh "eval \$(sudo aws ecr get-login --no-include-email --region ${REGION})"
 				}	
 			}
 		}
@@ -72,22 +72,22 @@ pipeline{
 					"""
 					
 					// Create new task definition revision
-					sh  "aws ecs register-task-definition --family ${TASK_FAMILY} --cli-input-json file://containersDef.json --region ${REGION}"
+					sh  "sudo aws ecs register-task-definition --family ${TASK_FAMILY} --cli-input-json file://containersDef.json --region ${REGION}"
 					
 					// Get the latest task revision
 					TASK_REVISION = sh (
-						script: "aws ecs describe-task-definition --task-definition ${TASK_FAMILY} | egrep \"revision\" | tr \"/\" \" \" | awk '{print \$2}' | sed 's/\"\$//'",
+						script: "sudo aws ecs describe-task-definition --task-definition ${TASK_FAMILY} | egrep \"revision\" | tr \"/\" \" \" | awk '{print \$2}' | sed 's/\"\$//'",
 						returnStdout: true
 					).trim()
 					
 					// Get desired task count currently deployed on the service
 					DESIRED_COUNT = sh (
-						script: "aws ecs describe-services --cluster ${ECS_CLUSTER} --services ${SERVICE_NAME} | egrep \"desiredCount\"  | tr \"/\" \" \"| awk '{print \$2}'| sed 's/,\$//'| sed -n 1p",
+						script: "sudo aws ecs describe-services --cluster ${ECS_CLUSTER} --services ${SERVICE_NAME} | egrep \"desiredCount\"  | tr \"/\" \" \"| awk '{print \$2}'| sed 's/,\$//'| sed -n 1p",
 						returnStdout: true
 					).trim()
 					
 					// Update the service.
-					sh "aws ecs update-service --cluster ${ECS_CLUSTER} --service ${SERVICE_NAME} --task-definition ${TASK_FAMILY}:${TASK_REVISION} --desired-count ${DESIRED_COUNT} > /dev/null"
+					sh "sudo aws ecs update-service --cluster ${ECS_CLUSTER} --service ${SERVICE_NAME} --task-definition ${TASK_FAMILY}:${TASK_REVISION} --desired-count ${DESIRED_COUNT} > /dev/null"
 				
 				}
 			}
