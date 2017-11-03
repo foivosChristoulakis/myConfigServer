@@ -7,7 +7,7 @@
   		"protocol": "tcp"
   	}],
   	"essential": true,
-  	"name": "dev1-coral-epos2-infra-config",
+  	"name": "container1",
   	"environment": [{
   			"name": "application.name",
   			"value": "foo"
