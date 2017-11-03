@@ -14,9 +14,6 @@
   		}
   	],
   	"image": "__imageName__:__imageTag__",
-  	"logConfiguration": {
-  		"logDriver": "awslogs"
-  	},
   	"cpu": 0,
   	"memoryReservation": 500
   }]
